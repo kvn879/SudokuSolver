@@ -23,16 +23,35 @@ public class Board {
         }
     }
 
-    private void isValid(int[][] board, int row, int column, int number) {
-
-        //checking each row
+    private boolean isValid(int[][] board, int row, int column, int number) {
 
 
-        //checking column
+        for(int i = 0; i < 9; i++) {
+            if(board[row][i] == number) return false;
+            if(board[i][column] == number) return false;
+        }
 
 
-        //checking 3x3 grid
+        int gridRowStart = row - row % 3;
+        int gridColStart = column - column % 3;
 
+        for(int r = gridRowStart; r < gridRowStart + 3; r++) {
+            for(int c = gridColStart; c < gridColStart + 3; c++) {
+                if(board[r][c] == number) return false;
+            }
+        }
+        return true;
+
+    }
+
+    public boolean solve(int[][] board) {
+        for(int row = 0; row < 9; row++){
+            for(int col = 0; col < 9; col++) {
+                if(board[row][col] == 0) {
+
+                }
+            }
+        }
     }
 
 
