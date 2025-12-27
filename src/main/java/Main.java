@@ -10,19 +10,38 @@ public class Main {
         System.out.println("Enter the first number starting in the top left corner\n");
         for(int row = 0; row < 9; row++) {
             for(int col = 0; col < 9; col++) {
-                if(scanner.next() == "q") System.exit(0);
-                int nextInt = scanner.nextInt();
-                //if(nextInt < 0 || nextInt > 9) System.out.println("Invalid Input");
-                sudokuBoard[row][col] = nextInt;
+                String input = scanner.next();
+                if (input.equalsIgnoreCase("q")) System.exit(0);
+
+                try {
+                    int nextVal = Integer.parseInt(input);
+                    if(nextVal < 0 || nextVal > 9) {
+                        System.out.println("Invalid Input");
+                    }
+                    else{
+                        sudokuBoard[row][col] = nextVal;
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Not a number");
+                    sudokuBoard[row][col] = 0;
+                }
+
 
             }
         }
 
         scanner.close();
-        Board board = new Board(sudokuBoard);
-        board.drawBoard(sudokuBoard);
 
+        Solver solver = new Solver(sudokuBoard);
+        if(solver.solve(sudokuBoard) == true) {
+            solver.drawBoard(sudokuBoard);
+            System.out.println("Puzzle Solved!");
+        }
 
+        else {
+            System.out.println("This puzzle can not be solved");
+        }
 
     }
 

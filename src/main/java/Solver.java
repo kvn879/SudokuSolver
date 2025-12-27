@@ -1,11 +1,10 @@
-public class Board {
+public class Solver {
 
     private int[][] board;
 
-    public Board(int[][] board) {
+    public Solver(int[][] board) {
 
         this.board = board;
-
     }
 
     public void drawBoard(int[][] board) {
@@ -49,9 +48,24 @@ public class Board {
             for(int col = 0; col < 9; col++) {
                 if(board[row][col] == 0) {
 
+                    for(int num = 1; num <=9; num++) {
+                        if(isValid(board, row, col, num) == true) {
+                            System.out.println("Placing " + num + " at " + row + "," + col);
+                            board[row][col] = num;
+                            if(solve(board)) {
+                                return true;
+                            }
+
+                            board[row][col] = 0;
+                        }
+                    }
+
+                    return false;
                 }
             }
         }
+
+        return true;
     }
 
 
